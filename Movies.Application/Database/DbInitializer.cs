@@ -27,7 +27,7 @@ namespace Movies.Application.Database
                 yearofrelease integer not null);
              """);
             await connection.ExecuteAsync("""
-                create unique index concurrently if not exists movies_slug_id on moevies using btree(slug)
+                create unique index concurrently if not exists movies_slug_id on movies using btree(slug)
              """);
         }
     }

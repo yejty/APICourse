@@ -1,4 +1,5 @@
 using Movies.Application;
+using Movies.Application.Database;
 using Movies.Application.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,7 +30,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//var dbInitializer = app.Services.GetRequiredService<DbInitializer>();
-//await dbInitializer.InitializeAsync();
+var dbInitializer = app.Services.GetRequiredService<DbInitializer>();
+await dbInitializer.InitializeAsync();
 
 app.Run();
