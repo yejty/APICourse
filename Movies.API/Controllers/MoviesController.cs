@@ -56,7 +56,7 @@ namespace Movies.API.Controllers
         {
             var movie = request.MapToMovie(id);
             var updatedMovie = await _movieService.UpdateAsync(movie);
-            if (updatedMovie is not null)
+            if (updatedMovie is null)
             {
                return NotFound();
             }
