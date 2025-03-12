@@ -16,6 +16,10 @@ namespace Movies.Application.Models
 
         public string Slug => GenerateSlug(); //it is nor required, because it is computed
 
+        public float? Rating { get; set; }
+
+        public int? UserRating { get; set; }
+
         public required int YearOfRelease { get; set; }
 
         public required List<string> Genres { get; init; } = new();

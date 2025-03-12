@@ -35,6 +35,15 @@ namespace Movies.Application.Database
                 create table if not exists genres(movieId UUID references movies (Id),
                 name TEXT not null)
              """);
+
+            await connection.ExecuteAsync("""
+                CREATE TABLE IF NOT EXISTS ratings (
+                userid UUID,
+                movieid UUID REFERENCES movies(id),
+                rating INTEGER NOT NULL,
+                PRIMARY KEY (userid, movieid)
+                );
+            """);
         }
     }
 }

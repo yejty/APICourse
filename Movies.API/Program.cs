@@ -5,7 +5,7 @@ using Movies.Application.Database;
 using Movies.Application.Repositories;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Movies.API;
+using Movies.API.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
