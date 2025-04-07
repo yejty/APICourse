@@ -74,17 +74,18 @@ namespace Movies.Application.Repositories
         {
             using var connection = await _dbConnectionFactory.CreateConnectionAsync(token);
             var result = await connection.QueryAsync(new CommandDefinition("""
-                select m.*, 
-                    string_agg(distinct g.name, ',') as genres,
-                    round(avg(r.rating), 1) as rating,
-                    myr.rating as userrating
-                from movies m 
-                left join genres g on m.id = g.movieid
-                left join ratings r on m.id = r.movieid
-                left join ratings myr on m.id = myr.movieid
-                    and myr.userid = @userId
-                group by id
-                """, new { userid }, cancellationToken: token ));
+                SELECT 
+                    m.*, 
+                    STRING_AGG(DISTINCT g.name, ',') AS genres,
+                    ROUND(AVG(r.rating), 1) AS rating,
+                    myr.rating AS userrating
+                FROM movies m 
+                LEFT JOIN genres g ON m.id = g.movieid
+                LEFT JOIN ratings r ON m.id = r.movieid
+                LEFT JOIN ratings myr ON m.id = myr.movieid
+                    AND myr.userid = @userId
+                GROUP BY id, userrating
+                """, new { userid }, cancellationToken: token));
 
             return result.Select(x => new Movie
             {

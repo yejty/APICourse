@@ -6,6 +6,7 @@ using Movies.Application.Repositories;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Movies.API.Auth;
+using Asp.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -40,6 +41,14 @@ builder.Services.AddAuthorization(x =>
     ));
 });
 
+//builder.Services.AddApiVersioning().AddMvc();
+builder.Services.AddApiVersioning(x =>
+{
+    x.DefaultApiVersion = new ApiVersion(1.0);
+    x.AssumeDefaultVersionWhenUnspecified = true;
+    x.ReportApiVersions = true;
+    x.ApiVersionReader = new MediaTypeApiVersionReader("api-version");
+}).AddMvc();
 // Add services to the container.
 
 builder.Services.AddControllers();
